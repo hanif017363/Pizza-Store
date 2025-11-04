@@ -30,7 +30,11 @@ input[type="text"] {
   border-radius: 0.5rem;
   @apply border p-2 border-gray-300 bg-gray-200;
 }
-
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="text"]:disabled {
+  @apply bg-gray-300 cursor-not-allowed;
+}
 button {
   @apply w-full text-gray-700 font-semibold border border-gray-500 rounded-xl px-6 py-2 hover:scale-105 transition ease-in-out duration-300;
 }
@@ -38,4 +42,8 @@ button {
 button[type="submit"],
 .submit {
   @apply border-0  text-white;
+}
+button[type="submit"]:disabled,
+.submit:disabled {
+  @apply cursor-not-allowed bg-red-400;
 }

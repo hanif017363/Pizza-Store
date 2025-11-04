@@ -3,9 +3,17 @@ import mongoose from "mongoose";
 
 export async function POST(req) {
   try {
-    const body = await req.json();
+    const { username, email, password } = await req.json();
+
+    if (!username || !email || !password) {
+      return new Response(
+        JSON.stringify({ error: "All fields are required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     await mongoose.connect(process.env.MONGODB_URL);
-    const createdUser = await User.create(body);
+    const createdUser = await User.create({ username, email, password });
 
     return new Response(JSON.stringify(createdUser), {
       status: 201,
