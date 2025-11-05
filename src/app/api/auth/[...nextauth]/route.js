@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 import { User } from "../../../models/User";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -9,7 +10,7 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: {
+        email: {
           label: "Email",
           type: "email",
           placeholder: "test@example.com",
@@ -17,12 +18,22 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials;
-        mongoose.connect(process.env.MONGODB_URL);
+        const email = credentials?.email;
+        const password = credentials?.password;
+
+        await mongoose.connect(process.env.MONGODB_URL);
         const user = await User.findOne({ email });
-        if (user && bcrypt.compareSync(password, user.password)) {
-          return user;
+
+        if (!user) {
+          throw new Error("No user found with this email");
         }
+
+        const isValid = bcrypt.compareSync(password, user.password);
+        if (!isValid) {
+          throw new Error("Invalid password");
+        }
+
+        return user;
       },
     }),
   ],

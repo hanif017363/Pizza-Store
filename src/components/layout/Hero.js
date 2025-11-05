@@ -25,7 +25,7 @@ function Hero() {
             <Right />
           </button>
           <button
-            className="flex justify-center items-center gap-2 px-3 py-2 text-sm md:text-md font-semibold rounded-2xl border-2 border-[#f13a01] text-[#f13a01]
+            className="flex justify-center items-center gap-2 px-3 py-2 text-sm md:text-md font-semibold rounded-2xl border-2! border-[#f13a01]! text-[#f13a01]!
                hover:scale-105 transition duration-300 ease-in-out"
           >
             Learn More

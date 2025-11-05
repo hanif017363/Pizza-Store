@@ -1,7 +1,10 @@
 "use client";
+import { CheckCircle } from "lucide-react";
 import { signIn } from "next-auth/react";
-import Credentials from "next-auth/providers/credentials";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 function LogIn() {
@@ -10,6 +13,7 @@ function LogIn() {
   const [logingUser, setLogingUser] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState(false);
+  const router = useRouter();
 
   async function handleSubmitForm(e) {
     e.preventDefault();
@@ -24,6 +28,9 @@ function LogIn() {
     });
     if (result?.ok) {
       setLoggedIn(true);
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     } else {
       setError(true);
     }
@@ -69,7 +76,7 @@ function LogIn() {
 
             {error && (
               <p className="text-center text-red-500 font-medium mb-4">
-                ❌ Failed to Log In. Please try again.
+                Failed to Log In. Please try again.
               </p>
             )}
 
@@ -99,8 +106,12 @@ function LogIn() {
           </form>
         </>
       ) : (
-        <div>
-          <p>hello</p>
+        <div className="text-center mt-10">
+          <CheckCircle className="text-green-500 w-12 h-12 mx-auto" />
+          <p className="text-green-600 text-lg font-medium mt-3">
+            Login Successful
+          </p>
+          <p className="text-gray-500">Redirecting to home...</p>
         </div>
       )}
     </section>
