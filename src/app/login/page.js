@@ -22,9 +22,10 @@ function LogIn() {
     setLogingUser(true);
 
     const result = await signIn("credentials", {
-      redirect: false, // don't redirect automatically
+      redirect: false,
       email,
       password,
+      callbackUrl: "/",
     });
     if (result?.ok) {
       setLoggedIn(true);
@@ -86,8 +87,9 @@ function LogIn() {
 
             <button
               type="button"
-              className="flex gap-4 justify-center items-center w-full py-2 border rounded disabled:opacity-70"
+              className="flex gap-4 justify-center items-center w-full py-2 border rounded disabled:opacity-70 text-black!"
               disabled={logingUser}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
             >
               <Image
                 src="/google.png"

@@ -18,7 +18,7 @@ function Hero() {
         </p>
         <div className="flex gap-2 mt-6 ">
           <button
-            className="flex justify-center !text-white items-center px-3 py-2 text-sm font-semibold rounded-2xl logo-bg
+            className="flex justify-center text-white! items-center px-3 py-2 text-sm font-semibold rounded-2xl logo-bg
                hover:scale-105 hover:shadow-lg transition duration-300 ease-in-out"
           >
             Order Now

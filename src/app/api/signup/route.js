@@ -12,7 +12,7 @@ export async function POST(req) {
       );
     }
 
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URI);
     const createdUser = await User.create({ username, email, password });
 
     return new Response(JSON.stringify(createdUser), {
